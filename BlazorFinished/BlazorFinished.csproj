@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="APIService">
+      <HintPath>C:\Users\yehok\OneDrive\שולחן העבודה\SolModel\SolModel\SolModel\APIService\bin\Debug\net7.0\APIService.dll</HintPath>
+    </Reference>
+    <Reference Include="Model">
+      <HintPath>C:\Users\yehok\OneDrive\שולחן העבודה\SolModel\SolModel\SolModel\APIService\bin\Debug\net7.0\Model.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

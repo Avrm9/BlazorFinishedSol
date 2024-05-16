@@ -1,0 +1,95 @@
+﻿@page "/main"
+@inherits LayoutComponentBase
+
+<div class="main-container" >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sports List</th>
+                <th>Leagues List</th>
+                <th>Teams List</th>
+                <th>Special Teams List</th>
+                <th>Players List</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (sportsList != null || leaguesList != null || teamlist != null || specialteamslist != null || playerlist != null)
+            {
+                @for (int i = 0; i < Math.Max(Math.Max(sportsList?.Count ?? 0, leaguesList?.Count ?? 0), Math.Max(teamlist?.Count ?? 0, Math.Max(specialteamslist?.Count ?? 0, playerlist?.Count ?? 0))); i++)
+                {
+                    <tr>
+                        <td>@(i < sportsList?.Count ? sportsList[i].SportName.ToString() : "")</td>
+                        <td>@(i < leaguesList?.Count ? leaguesList[i].LeagueName.ToString() : "")</td>
+                        <td>@(i < teamlist?.Count ? teamlist[i].TeamName.ToString() : "")</td>
+                        <td>@(i < specialteamslist?.Count ? specialteamslist[i].TeamName.ToString() : "")</td>
+                        <td>@(i < playerlist?.Count ? playerlist[i].PlayerName.ToString() : "")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Inject]
+    public ApiService ApiService { get; set; }
+
+    private List<Sport> sportsList;
+    private List<League> leaguesList;
+    private List<Team> teamlist;
+    private List<SpecialTeams> specialteamslist;
+    private List<Player> playerlist;
+
+    protected override async Task OnInitializedAsync()
+    {
+        sportsList = await ApiService.GetSports();
+        leaguesList = await ApiService.GetLeagues();
+        teamlist = await ApiService.GetTeams();
+        specialteamslist = await ApiService.GetSpecialTeamss();
+        playerlist = await ApiService.GetPlayers();
+    }
+}
+<style>
+    body {
+        background: linear-gradient(135deg, #181735 0%, #181735 100%);
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: white; 
+    }
+
+    .main-container {
+        padding: 20px;
+        color: white;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            color: white;
+        }
+
+        .table th {
+            background-color: #333;
+            color: white;color: white; 
+        }
+
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+</style>
